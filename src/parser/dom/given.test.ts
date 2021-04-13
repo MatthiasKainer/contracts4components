@@ -31,7 +31,7 @@ describe("Parser", () => {
         expect(expectEvent).toBeCalledWith(container, "search", { detail: searchQuery })
 
         expect(toContract()).toEqual([
-            "const {getByRole,getByLabelText,getByText,} = require(\"@testing-library/dom\");",
+            "const {screen,getByRole,getByLabelText,getByText,} = require(\"@testing-library/dom\");",
             "const {default: userAction} = require(\"@testing-library/user-event\");",
             "module.exports = {",
             "expectedContract: async (container) => {",

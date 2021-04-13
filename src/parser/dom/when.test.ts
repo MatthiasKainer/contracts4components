@@ -54,13 +54,13 @@ describe("Parser", () => {
         expect(() => getByRole(container, "button", { name: /search/i })).not.toThrowError()
 
         expect(toContract()).toEqual([
-            "const {getByRole,getByLabelText,getByText,} = require(\"@testing-library/dom\");",
+            "const {screen,getByRole,getByLabelText,getByText,} = require(\"@testing-library/dom\");",
             "const {default: userAction} = require(\"@testing-library/user-event\");",
             "module.exports = {",
             "expectedContract: async (container) => {",
-            "const block_0_0 = getByLabelText(container,/my search/gi);",
+            "const block_0_0 = screen.getByLabelText(/my search/gi);",
             "const block_0 = userAction.type(block_0_0,\"some text\");",
-            "const block_1_0 = getByRole(container,\"button\",{ name: /search/i });",
+            "const block_1_0 = screen.getByRole(\"button\",{ name: /search/i });",
             "const block_1 = userAction.click(block_1_0);",
             "}",
             "}",
