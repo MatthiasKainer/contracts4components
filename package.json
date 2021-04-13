@@ -2,10 +2,12 @@
   "name": "contracts4components",
   "version": "1.0.2",
   "description": "Contract Testing for components",
+  "type": "module",
   "main": "dist/index.js",
-  "module": "dist/index.js",
+  "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
   "scripts": {
+    "prepublishOnly": "npm run build",
     "build": "npm test && rollup -c",
     "test": "jest",
     "use-case": "npm run use-case:consumer && npm run use-case:provider",
