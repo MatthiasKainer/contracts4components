@@ -23,7 +23,7 @@ export const addThen = (...line: string[]) => {
 }
 
 export const toContract = () => {
-    return writer.frame(...given,
+    return writer().frame(...given,
         ...when,
         ...then)
 }

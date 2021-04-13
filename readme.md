@@ -3,7 +3,7 @@
 > <span style="color:red;font-weight:bold;">NOTE:</span> This project is a proof of concept and provides an example of how one could do something like this.
 > It is not complete, does not handle other cases than the ones shown in the example and I'm currently not planning to extend it
 
-This example does not support any frameworks, only plain HTMLElements.
+This example supports only dom and react test framework at the moment.
 
 The idea is to bring contract tests to the frontend world.
 
@@ -99,7 +99,6 @@ const definition = {
                               type: "query",
                               action: "getByLabelText",
                               args: [
-                                    container,
                                     /my search/gi
                               ]
                         },
@@ -114,7 +113,6 @@ const definition = {
                               type: "query",
                               action: "getByRole",
                               args: [
-                                    container,
                                     "button",
                                     { name: /search/i }
                               ]
@@ -153,20 +151,20 @@ const definition = {
 }
 ```
 
-This definition can be executed via the test method provided by this library:
+This definition can be executed via the `testFor[DOM|React]` method provided by this library:
 
 ```js
-await test(
+await testForDOM(
       container, // the container under test
       definition, // the definition to execute
       path.join(__dirname, "..") // the location where to put the contract
 )
 ```
 
-Running `test` will perform multiple things:
+Running `testForDOM` will perform multiple things:
 
 - it will create a contract test that can be shared with the other team
-- it will create an implementation that matches the specification, and runs all tests against it. If your specification cannot be tested, the contract will not be created and your test is red. You can take a look at the created dom by running `expect(container.outerHTML).toMatchSnapshot()` after `test`. In our example, it looks like this:
+- it will create an implementation that matches the specification, and runs all tests against it. If your specification cannot be tested, the contract will not be created and your test is red. You can take a look at the created dom by running `expect(container.outerHTML).toMatchSnapshot()` after `testForDOM`. In our example, it looks like this:
 
 ```html
 <search-form label="my search">
@@ -180,7 +178,11 @@ Running `test` will perform multiple things:
 
 This might not have been exactly what a control like this looks like - but the important part of this test is that we don't want to specify HOW the HTML looks like, but what BEHAVIOUR we expect from it.
 
+If you want to receive a React component, run the definition against the `testForReact` function.
+
 ## Provider
+
+### DOM
 
 All the provider has to do is link this up with their component.
 
@@ -223,3 +225,46 @@ module.exports = {
     }
 }
 ```
+
+### React
+
+All the provider has to do is link this up with their component.
+
+```js
+// the react-element under test
+import {SearchForm} from "./component"
+// the contract that was created by the consumer
+import { expectedContract } from "../search-navigation-search-form.contract";
+
+
+describe("Provider", () => {
+    it("should pass the provided test with my component", async () => {
+        await expectedContract(SearchForm)
+    })
+})
+```
+
+If the team would not provide a way to customize the label, or the `search` event was not triggered, the test will fail.
+
+The generated tests look like the following:
+
+```js
+const React = require("react");
+const { screen, render } = require("@testing-library/react");
+const { default: userAction } = require("@testing-library/user-event");
+module.exports = {
+    expectedContract: async (container) => {
+        const search = jest.fn();
+        render(React.createElement(container, { label: "my search", search }))
+        const block_0_0 = screen.getByLabelText(/my search/gi);
+        const block_0 = userAction.type(block_0_0, "some text");
+        const block_1_0 = screen.getByRole("button", { name: /search/i });
+        const block_1 = userAction.click(block_1_0);
+        (function (search) {
+            expect(search).toBeCalledTimes(1);
+            expect(search.mock.calls[0][0].detail).toEqual({ query: "some text" });
+        })(search)
+    }
+}
+```
+

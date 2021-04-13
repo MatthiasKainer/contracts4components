@@ -1,17 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`consumer <search molecule> provides a valid component 1`] = `"/Users/matthiaskainer/projects/private/contracts4components/test/search-navigation-search-form.contract.js written"`;
+exports[`consumer <search molecule> provides a valid component 1`] = `"/Users/matthiaskainer/projects/private/contracts4components/test/react/search-navigation-SearchForm.contract.js written"`;
 
 exports[`consumer <search molecule> provides a valid component 2`] = `
 Array [
-  "const {screen,getByRole,getByLabelText,getByText,} = require(\\"@testing-library/dom\\");",
+  "const React = require(\\"react\\");",
+  "const {screen, render} = require(\\"@testing-library/react\\");",
   "const {default: userAction} = require(\\"@testing-library/user-event\\");",
   "module.exports = {",
   "expectedContract: async (container) => {",
-  "container.setAttribute(\\"label\\", \\"my search\\");",
-  "await new Promise((resolve) => setImmediate(resolve));",
   "const search = jest.fn();",
-  "container.addEventListener(\\"search\\", search);",
+  "render(React.createElement(container, {label: \\"my search\\", search}))",
   "const block_0_0 = screen.getByLabelText(/my search/gi);",
   "const block_0 = userAction.type(block_0_0,\\"some text\\");",
   "const block_1_0 = screen.getByRole(\\"button\\",{ name: /search/i });",

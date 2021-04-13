@@ -1,24 +1,14 @@
-import {
-    getByRole,
-    getByLabelText,
-    getByText,
-} from "@testing-library/dom";
 import { Definition, parse } from "./parser";
-import { replaceQueries } from "./queries"
 import { cleanStore, toContract } from "./store";
 
 import * as fs from "fs"
 import * as path from "path"
+import { setFramework } from "./config";
 
-export const queries = {
-    ...replaceQueries({
-        getByRole,
-        getByLabelText,
-        getByText
-    })
-}
+export const setAsDOM = () => setFramework("dom")
+export const setAsReact = () => setFramework("react")
 
-export const test = (container: HTMLElement, definition: Definition, store: string) => {
+const test = (container: HTMLElement | any, definition: Definition, store: string) => {
     return new Promise((resolve, reject) => {
         cleanStore()
         parse(container, definition)
@@ -30,6 +20,9 @@ export const test = (container: HTMLElement, definition: Definition, store: stri
     })
 }
 
+export const testForDOM = (container: HTMLElement | any, definition: Definition, store: string) => (setAsDOM(), test(container, definition, store))
+export const testForReact = (container: HTMLElement | any, definition: Definition, store: string) => (setAsReact(), test(container, definition, store))
 
 export * from "./events"
 export * from "./actions"
+export * from "./queries"

@@ -1,7 +1,7 @@
-import { ThenBlock, ThenEventListenerStatement, UserActionStatement, WhenBlock } from "../../src/parser";
-import {test} from "../../src"
+import { ThenBlock, ThenEventListenerStatement, UserActionStatement, WhenBlock } from "../../../src/parser";
+import {testForDOM} from "../../../src"
 import * as path from "path"
-import { toContract } from "../../src/store";
+import { toContract } from "../../../src/store";
 
 describe("consumer <search molecule>", () => {
 
@@ -63,7 +63,7 @@ describe("consumer <search molecule>", () => {
             ] as ThenBlock
         }
         
-        expect(await test(container, definition, path.join(__dirname, ".."))).toMatchSnapshot()
+        expect(await testForDOM(container, definition, path.join(__dirname, ".."))).toMatchSnapshot()
         expect(toContract()).toMatchSnapshot()
         expect(container.outerHTML).toMatchSnapshot()
     })

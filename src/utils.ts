@@ -1,4 +1,4 @@
-import * as RandExp from "randexp"
+import RandExp from "randexp"
 
 const capitalize = (s?: string) => `${s?.charAt(0).toUpperCase()}${s?.slice(1).toLowerCase()}`;
 
