@@ -1,4 +1,4 @@
-import * as availableQueries from "./queries";
+import * as availableQueries from "./dom/queries";
 
 export const replaceQueries = <T>(queries: T = {} as T): T => {
   return {

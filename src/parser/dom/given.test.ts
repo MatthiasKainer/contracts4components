@@ -1,8 +1,8 @@
-import { expectEvent } from "../events";
-import { cleanStore, toContract } from "../store";
+import { expectEvent } from "../../events";
+import { cleanStore, toContract } from "../../store";
 import { parseGiven } from "./given";
 
-jest.mock("./events", () => ({
+jest.mock("../../events", () => ({
     __esModule: true,
     expectEvent: jest.fn()
 }))
@@ -32,7 +32,7 @@ describe("Parser", () => {
 
         expect(toContract()).toEqual([
             "const {getByRole,getByLabelText,getByText,} = require(\"@testing-library/dom\");",
-            "const userAction = require(\"@testing-library/user-event\");",
+            "const {default: userAction} = require(\"@testing-library/user-event\");",
             "module.exports = {",
             "expectedContract: async (container) => {",
             "container.setAttribute(\"label\", \"my search\");",

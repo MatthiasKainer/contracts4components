@@ -1,3 +1,7 @@
+
+export function isThenEventListenerStatement(block: ThenStatement): block is ThenEventListenerStatement {
+    return block.type === "eventListener"
+}
 export type GivenBlock = {
     props: {[key:string]: string},
     events: {[key:string]: CustomEventInit<any>}

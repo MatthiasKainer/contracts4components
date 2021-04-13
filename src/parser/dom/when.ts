@@ -1,6 +1,6 @@
-import { WhenStatement, UserActionStatement, QueryStatement, WhenBlock } from ".";
-import { queries, expectedAction } from "..";
-import { addWhen } from "../store";
+import { WhenStatement, UserActionStatement, QueryStatement, WhenBlock } from "../../blocks/types";
+import { queries, expectedAction } from "../..";
+import { addWhen } from "../../store";
 
 function isUserActionStatement(block: WhenStatement): block is UserActionStatement {
     return block.type === "userAction"
@@ -51,8 +51,8 @@ const argsExpand = (container: HTMLElement, base: string, args: any[]) => args.m
 
 const queryAction = (container: HTMLElement, base: string, block: QueryStatement): string[] => {
     const args = argsExpand(container, base, block.args);
-    addWhen(`const ${base} = ${block.action}(${args.map(a => a.var).join(",")});`)
-    return (queries[block.action] as any)(...args.map(a => a.fn))
+    addWhen(`const ${base} = screen.${block.action}(${args.map(a => a.var).join(",")});`)
+    return (queries[block.action] as any)(container, ...args.map(a => a.fn))
 }
 
 const userAction = (container: HTMLElement, base: string, block: UserActionStatement): string[] => {

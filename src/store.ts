@@ -1,3 +1,5 @@
+import { writer } from "./writer"
+
 const given: string[] = []
 const when: string[] = []
 const then: string[] = []
@@ -21,14 +23,7 @@ export const addThen = (...line: string[]) => {
 }
 
 export const toContract = () => {
-    return [
-        `const {getByRole,getByLabelText,getByText,} = require("@testing-library/dom");`,
-        `const userAction = require("@testing-library/user-event");`,
-        `module.exports = {`,
-        `expectedContract: async (container) => {`,
-        ...given,
+    return writer.frame(...given,
         ...when,
-        ...then,
-        `}`,
-        `}`]
+        ...then)
 }

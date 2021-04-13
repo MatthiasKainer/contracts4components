@@ -4,7 +4,10 @@
   "description": "Contract Testing for components",
   "main": "app.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "use-case": "npm run use-case:consumer && npm run use-case:provider",
+    "use-case:consumer": "jest consumer",
+    "use-case:provider": "jest provider"
   },
   "author": "Matthias Kainer",
   "license": "ISC",

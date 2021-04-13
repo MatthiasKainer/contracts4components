@@ -1,4 +1,4 @@
-import { capitalize, getValidText } from "../utils";
+import { capitalize, getValidText } from "../../utils";
 
 export const getByRole = (
   fn: (container: HTMLElement, ...args: any[]) => HTMLElement

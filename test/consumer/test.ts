@@ -7,7 +7,6 @@ describe("consumer <search molecule>", () => {
 
     it("provides a valid component", async () => {
         // given
-        const searchQuery = { query: "some text" }
         const container = document.createElement("search-form")
         const definition = {
             provider: "search",
@@ -18,7 +17,7 @@ describe("consumer <search molecule>", () => {
                     label: "my search"
                 },
                 events: {
-                    "search": { detail: searchQuery }
+                    "search": { detail: { query: "some text" } }
                 }
             },
             when: [
@@ -30,11 +29,10 @@ describe("consumer <search molecule>", () => {
                             type: "query",
                             action: "getByLabelText",
                             args: [
-                                container,
                                 /my search/gi
                             ]
                         },
-                        searchQuery.query
+                        "some text"
                     ]
                 },
                 {
@@ -45,7 +43,6 @@ describe("consumer <search molecule>", () => {
                             type: "query",
                             action: "getByRole",
                             args: [
-                                container,
                                 "button",
                                 { name: /search/i }
                             ]
@@ -60,7 +57,7 @@ describe("consumer <search molecule>", () => {
                     name: "search",
                     assert: (search: jest.Mock) => {
                         expect(search).toBeCalledTimes(1);
-                        expect(search.mock.calls[0][0].detail).toEqual(searchQuery);
+                        expect(search.mock.calls[0][0].detail).toEqual({ query: "some text" });
                     }
                 } as ThenEventListenerStatement
             ] as ThenBlock

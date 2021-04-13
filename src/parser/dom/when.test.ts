@@ -1,9 +1,9 @@
-import { QueryStatement, UserActionStatement, WhenBlock } from "."
+import { QueryStatement, UserActionStatement, WhenBlock } from "../../blocks/types"
 import { getByLabelText, getByRole } from "@testing-library/dom";
-import { cleanStore, toContract } from "../store";
+import { cleanStore, toContract } from "../../store";
 import { parseWhen } from "./when";
 
-jest.mock("./events", () => ({
+jest.mock("../../events", () => ({
     __esModule: true,
     expectEvent: jest.fn()
 }))
@@ -26,7 +26,6 @@ describe("Parser", () => {
                         type: "query",
                         action: "getByLabelText",
                         args: [
-                            container,
                             /my search/gi
                         ]
                     } as QueryStatement,
@@ -41,7 +40,6 @@ describe("Parser", () => {
                         type: "query",
                         action: "getByRole",
                         args: [
-                            container,
                             "button",
                             { name: /search/i }
                         ]
@@ -57,7 +55,7 @@ describe("Parser", () => {
 
         expect(toContract()).toEqual([
             "const {getByRole,getByLabelText,getByText,} = require(\"@testing-library/dom\");",
-            "const userAction = require(\"@testing-library/user-event\");",
+            "const {default: userAction} = require(\"@testing-library/user-event\");",
             "module.exports = {",
             "expectedContract: async (container) => {",
             "const block_0_0 = getByLabelText(container,/my search/gi);",

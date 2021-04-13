@@ -1,7 +1,7 @@
 import { parse, ThenBlock, ThenEventListenerStatement, UserActionStatement, WhenBlock } from "."
 import { cleanStore, toContract } from "../store";
 
-jest.mock("./events", () => ({
+jest.mock("../events", () => ({
     __esModule: true,
     expectEvent: jest.fn()
 }))
@@ -36,7 +36,6 @@ describe("Parser", () => {
                             type: "query",
                             action: "getByLabelText",
                             args: [
-                                container,
                                 /my search/gi
                             ]
                         },
@@ -51,7 +50,6 @@ describe("Parser", () => {
                             type: "query",
                             action: "getByRole",
                             args: [
-                                container,
                                 "button",
                                 { name: /search/i }
                             ]
@@ -76,7 +74,7 @@ describe("Parser", () => {
 
         expect(toContract()).toEqual([
             "const {getByRole,getByLabelText,getByText,} = require(\"@testing-library/dom\");",
-            "const userAction = require(\"@testing-library/user-event\");",
+            "const {default: userAction} = require(\"@testing-library/user-event\");",
             "module.exports = {",
             "expectedContract: async (container) => {",
             "container.setAttribute(\"label\", \"my search\");",

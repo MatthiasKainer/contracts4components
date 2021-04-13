@@ -4,7 +4,7 @@ import {
   getByText,
   getByAltText,
 } from "@testing-library/dom";
-import { replaceQueries } from "./replaceQueries";
+import { replaceQueries } from "../replaceQueries";
 
 const createDocument = () => {
   if (document.body.querySelector("#render-container")) {
