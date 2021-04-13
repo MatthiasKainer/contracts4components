@@ -26,3 +26,4 @@ export const testForReact = (container: HTMLElement | any, definition: Definitio
 export * from "./events"
 export * from "./actions"
 export * from "./queries"
+export * from "./blocks/types"
