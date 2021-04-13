@@ -20,9 +20,17 @@ export default {
     {
       file: pkg.module,
       format: 'es',
-      exports: 'named',
       sourcemap: true
     }
+  ],
+  external: [
+    "fs",
+    "path",
+    "react",
+    "react-dom",
+    "@testing-library/dom",
+    "@testing-library/react",
+    "@testing-library/user-event",
   ],
   plugins: [
     typescript(),
