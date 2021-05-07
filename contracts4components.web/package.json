@@ -1,0 +1,46 @@
+{
+  "name": "contracts4components",
+  "version": "1.0.5",
+  "description": "Contract Testing for components",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "jsnext:main": "dist/index.es.js",
+  "scripts": {
+    "prepublishOnly": "npm run build",
+    "build": "npm test && rollup -c",
+    "test": "npm run test:unit && npm run test:use-case",
+    "test:unit": "jest ./src",
+    "test:use-case": "docker run -d -p 8097:8097 --name=contracts4components mkainer/contracts4components.server && npm run test:use-case:consumer && npm run test:use-case:provider; docker rm -f contracts4components",
+    "test:use-case:consumer": "jest consumer",
+    "test:use-case:provider": "jest provider"
+  },
+  "author": "Matthias Kainer",
+  "license": "ISC",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^18.0.0",
+    "@rollup/plugin-replace": "^2.4.2",
+    "@testing-library/dom": "^7.30.3",
+    "@testing-library/react": "^11.2.6",
+    "@testing-library/user-event": "^13.1.1",
+    "@types/jest": "^26.0.22",
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.3",
+    "jest": "^26.6.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "rollup": "^2.45.2",
+    "rollup-plugin-filesize": "^9.1.1",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.30.0",
+    "ts-jest": "^26.5.4",
+    "typescript": "^4.2.3"
+  },
+  "peerDependencies": {
+    "@testing-library/dom": "*"
+  },
+  "dependencies": {
+    "randexp": "^0.5.3"
+  }
+}
