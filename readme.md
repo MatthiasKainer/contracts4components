@@ -7,4 +7,4 @@ This example supports only dom and react test framework at the moment.
 
 The idea is to bring contract tests to the frontend world.
 
-You can read more about it in [my blog](https://matthias-kainer.de/posts/contract-testing-in-the-frontend)
+You can read more about it in [my blog](https://matthias-kainer.de/blog/posts/contract-testing-in-the-frontend)
