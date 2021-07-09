@@ -15,6 +15,7 @@ application {
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 val kotlinCoroutinesVersion = "1.4.2"
